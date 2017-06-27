@@ -25839,6 +25839,17 @@
 
 	console.log('starting redux example');
 
+	var reducer = function reducer() {
+	  var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : { name: 'Anonymous' };
+	  var action = arguments[1];
+
+	  return state;
+	};
+	var store = redux.createStore(reducer);
+
+	var currentState = store.getState();
+	console.log('currentState', currentState);
+
 /***/ }),
 /* 234 */
 /***/ (function(module, exports, __webpack_require__) {
