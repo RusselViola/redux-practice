@@ -122,6 +122,7 @@
 	  'Testing Boilerplate'
 	), document.getElementById('app'));
 
+	// require('./redux-example.jsx');
 	__webpack_require__(233);
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(7), __webpack_require__(8)))
 
@@ -25835,6 +25836,8 @@
 
 	'use strict';
 
+	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
 	var redux = __webpack_require__(234);
 
 	console.log('starting redux-todo-example');
@@ -25848,12 +25851,26 @@
 	  var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : stateDefault;
 	  var action = arguments[1];
 
-	  return state;
+	  switch (action.type) {
+	    case 'CHANGE_SEARCH_TEXT':
+	      return _extends({}, state, {
+	        searchText: action.searchText
+	      });
+	    default:
+	      return state;
+	  }
 	};
 	var store = redux.createStore(reducer);
 
 	var currentState = store.getState();
 	console.log('currentState', currentState);
+
+	var action = {
+	  type: 'CHANGE_SEARCH_TEXT',
+	  searchText: 'work'
+	};
+	store.dispatch(action);
+	console.log('searchText should be "work"', store.getState());
 
 /***/ }),
 /* 234 */
