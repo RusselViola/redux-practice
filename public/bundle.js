@@ -25835,25 +25835,37 @@
 
 	'use strict';
 
+	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
 	var redux = __webpack_require__(234);
 
-	console.log('starting redux-todo-example');
+	console.log('starting redux example');
 
-	var stateDefault = {
-	  searchText: '',
-	  showCompleted: false,
-	  todos: []
-	};
 	var reducer = function reducer() {
-	  var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : stateDefault;
+	  var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : { name: 'Anonymous' };
 	  var action = arguments[1];
 
-	  return state;
+	  switch (action.type) {
+	    case 'CHANGE_NAME':
+	      return _extends({}, state, {
+	        name: action.name
+	      });
+	    default:
+	      return state;
+	  }
 	};
 	var store = redux.createStore(reducer);
 
 	var currentState = store.getState();
 	console.log('currentState', currentState);
+
+	var action = {
+	  type: 'CHANGE_NAME',
+	  name: 'Russel'
+	};
+	store.dispatch(action);
+
+	console.log('Name should be Russel', store.getState());
 
 /***/ }),
 /* 234 */
