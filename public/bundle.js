@@ -25837,7 +25837,23 @@
 
 	var redux = __webpack_require__(234);
 
-	console.log('starting redux example');
+	console.log('starting redux-todo-example');
+
+	var stateDefault = {
+	  searchText: '',
+	  showCompleted: false,
+	  todos: []
+	};
+	var reducer = function reducer() {
+	  var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : stateDefault;
+	  var action = arguments[1];
+
+	  return state;
+	};
+	var store = redux.createStore(reducer);
+
+	var currentState = store.getState();
+	console.log('currentState', currentState);
 
 /***/ }),
 /* 234 */
