@@ -12,7 +12,7 @@ let reducer = (state = stateDefault, action) => {
     case 'CHANGE_SEARCH_TEXT':
       return {
         ...state,
-        searchText: action.searchText
+        searchText: action.searchTexts
       }
     default:
       return state;

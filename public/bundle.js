@@ -25854,7 +25854,7 @@
 	  switch (action.type) {
 	    case 'CHANGE_SEARCH_TEXT':
 	      return _extends({}, state, {
-	        searchText: action.searchText
+	        searchText: action.searchTexts
 	      });
 	    default:
 	      return state;
