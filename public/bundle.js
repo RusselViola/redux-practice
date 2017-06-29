@@ -122,8 +122,8 @@
 	  'Testing Boilerplate'
 	), document.getElementById('app'));
 
-	// require('./redux-example.jsx');
 	__webpack_require__(233);
+	// require('./redux-todo-example.jsx');
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(7), __webpack_require__(8)))
 
 /***/ }),
@@ -25840,21 +25840,16 @@
 
 	var redux = __webpack_require__(234);
 
-	console.log('starting redux-todo-example');
+	console.log('starting redux example');
 
-	var stateDefault = {
-	  searchText: '',
-	  showCompleted: false,
-	  todos: []
-	};
 	var reducer = function reducer() {
-	  var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : stateDefault;
+	  var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : { name: 'Anonymous' };
 	  var action = arguments[1];
 
 	  switch (action.type) {
-	    case 'CHANGE_SEARCH_TEXT':
+	    case 'CHANGE_NAME':
 	      return _extends({}, state, {
-	        searchText: action.searchTexts
+	        name: action.name
 	      });
 	    default:
 	      return state;
@@ -25862,15 +25857,27 @@
 	};
 	var store = redux.createStore(reducer);
 
+	// subscribe to changes
+	var unsubscribe = store.subscribe(function () {
+	  var state = store.getState();
+
+	  console.log('Name is', state.name);
+	});
+	// unsubscribe()
+
 	var currentState = store.getState();
 	console.log('currentState', currentState);
 
 	var action = {
-	  type: 'CHANGE_SEARCH_TEXT',
-	  searchText: 'work'
+	  type: 'CHANGE_NAME',
+	  name: 'Russel'
 	};
 	store.dispatch(action);
-	console.log('searchText should be "work"', store.getState());
+
+	store.dispatch({
+	  type: 'CHANGE_NAME',
+	  name: 'Everett'
+	});
 
 /***/ }),
 /* 234 */

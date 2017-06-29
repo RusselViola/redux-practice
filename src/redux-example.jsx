@@ -15,6 +15,14 @@ let reducer = (state = {name: 'Anonymous'}, action) => {
 }
 let store = redux.createStore(reducer);
 
+// subscribe to changes
+let unsubscribe = store.subscribe(() => {
+  let state = store.getState();
+
+  console.log('Name is', state.name);
+});
+// unsubscribe()
+
 let currentState = store.getState();
 console.log('currentState', currentState);
 
@@ -24,4 +32,8 @@ let action = {
 }
 store.dispatch(action);
 
-console.log('Name should be Russel', store.getState());
+
+store.dispatch({
+  type: 'CHANGE_NAME',
+  name: 'Everett'
+});
