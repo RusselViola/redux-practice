@@ -114,13 +114,11 @@
 
 	console.log(process.env.ENV_TEST);
 
-	_reactDom2.default.render(
-	//Router
-	_react2.default.createElement(
-	  'p',
-	  null,
-	  'Testing Boilerplate'
-	), document.getElementById('app'));
+	// ReactDOM.render(
+	//   //Router
+	//   <p>Testing Boilerplate</p>,
+	//   document.getElementById('app')
+	// );
 
 	// require('./redux-example.jsx');
 	__webpack_require__(233);
@@ -25854,13 +25852,23 @@
 	  switch (action.type) {
 	    case 'CHANGE_SEARCH_TEXT':
 	      return _extends({}, state, {
-	        searchText: action.searchTexts
+	        searchText: action.searchText
 	      });
 	    default:
 	      return state;
 	  }
 	};
-	var store = redux.createStore(reducer);
+	var store = redux.createStore(reducer, redux.compose(window.devToolsExtension ? window.devToolsExtension() : function (f) {
+	  return f;
+	}));
+
+	// subscribe to changes
+	store.subscribe(function () {
+	  var state = store.getState();
+
+	  document.getElementById('app').innerHTML = state.searchText;
+	});
+	// unsubscribe();
 
 	var currentState = store.getState();
 	console.log('currentState', currentState);
@@ -25871,6 +25879,16 @@
 	};
 	store.dispatch(action);
 	console.log('searchText should be "work"', store.getState());
+
+	store.dispatch({
+	  type: "CHANGE_SEARCH_TEXT",
+	  searchText: 'dog'
+	});
+
+	store.dispatch({
+	  type: "CHANGE_SEARCH_TEXT",
+	  searchText: 'other stuff'
+	});
 
 /***/ }),
 /* 234 */

@@ -10,11 +10,11 @@ require('style!css!sass!applicationStyles')
 
 console.log(process.env.ENV_TEST)
 
-ReactDOM.render(
-  //Router
-  <p>Testing Boilerplate</p>,
-  document.getElementById('app')
-);
+// ReactDOM.render(
+//   //Router
+//   <p>Testing Boilerplate</p>,
+//   document.getElementById('app')
+// );
 
 // require('./redux-example.jsx');
 require('./redux-todo-example.jsx');
