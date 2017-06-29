@@ -114,13 +114,11 @@
 
 	console.log(process.env.ENV_TEST);
 
-	_reactDom2.default.render(
-	//Router
-	_react2.default.createElement(
-	  'p',
-	  null,
-	  'Testing Boilerplate'
-	), document.getElementById('app'));
+	// ReactDOM.render(
+	//   //Router
+	//   <p>Testing Boilerplate</p>,
+	//   document.getElementById('app')
+	// );
 
 	__webpack_require__(233);
 	// require('./redux-todo-example.jsx');
@@ -25855,13 +25853,16 @@
 	      return state;
 	  }
 	};
-	var store = redux.createStore(reducer);
+	var store = redux.createStore(reducer, redux.compose(window.devToolsExtension ? window.devToolsExtension() : function (f) {
+	  f;
+	}));
 
 	// subscribe to changes
 	var unsubscribe = store.subscribe(function () {
 	  var state = store.getState();
 
 	  console.log('Name is', state.name);
+	  document.getElementById('app').innerHTML = state.name;
 	});
 	// unsubscribe()
 
