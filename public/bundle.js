@@ -120,8 +120,8 @@
 	//   document.getElementById('app')
 	// );
 
+	// require('./redux-example.jsx');
 	__webpack_require__(233);
-	// require('./redux-todo-example.jsx');
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(7), __webpack_require__(8)))
 
 /***/ }),
@@ -25838,46 +25838,56 @@
 
 	var redux = __webpack_require__(234);
 
-	console.log('starting redux example');
+	console.log('starting redux-todo-example');
 
+	var stateDefault = {
+	  searchText: '',
+	  showCompleted: false,
+	  todos: []
+	};
 	var reducer = function reducer() {
-	  var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : { name: 'Anonymous' };
+	  var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : stateDefault;
 	  var action = arguments[1];
 
 	  switch (action.type) {
-	    case 'CHANGE_NAME':
+	    case 'CHANGE_SEARCH_TEXT':
 	      return _extends({}, state, {
-	        name: action.name
+	        searchText: action.searchText
 	      });
 	    default:
 	      return state;
 	  }
 	};
 	var store = redux.createStore(reducer, redux.compose(window.devToolsExtension ? window.devToolsExtension() : function (f) {
-	  f;
+	  return f;
 	}));
 
 	// subscribe to changes
-	var unsubscribe = store.subscribe(function () {
+	store.subscribe(function () {
 	  var state = store.getState();
 
-	  console.log('Name is', state.name);
-	  document.getElementById('app').innerHTML = state.name;
+	  document.getElementById('app').innerHTML = state.searchText;
 	});
-	// unsubscribe()
+	// unsubscribe();
 
 	var currentState = store.getState();
 	console.log('currentState', currentState);
 
 	var action = {
-	  type: 'CHANGE_NAME',
-	  name: 'Russel'
+	  type: 'CHANGE_SEARCH_TEXT',
+	  searchText: 'work'
 	};
 	store.dispatch(action);
+	console.log('searchText should be "work"', store.getState());
 
 	store.dispatch({
-	  type: 'CHANGE_NAME',
-	  name: 'Everett'
+	  type: "CHANGE_SEARCH_TEXT",
+	  searchText: 'dog'
+	});
+
+	store.dispatch({
+	  type: "CHANGE_SEARCH_TEXT",
+	  searchText: 'other stuff'
 	});
 
 /***/ }),

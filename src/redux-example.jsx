@@ -14,8 +14,7 @@ let reducer = (state = {name: 'Anonymous'}, action) => {
   }
 }
 let store = redux.createStore(reducer, redux.compose(
-  window.devToolsExtension ? window.devToolsExtension() : (f) => {f
-  }
+  window.devToolsExtension ? window.devToolsExtension() : f => f
 ));
 
 // subscribe to changes
