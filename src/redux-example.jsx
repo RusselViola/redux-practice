@@ -32,7 +32,7 @@ let reducer = (state = stateDefault, action) => {
       return {
         ...state,
         hobbies: state.hobbies.filter((hobby) => hobby.id !== action.id)
-        // shortened syntax for arrow function  ^^^^^^^^^^^^^^^^^^^^^^
+        // shorthand syntax for arrow function  ^^^^^^^^^^^^^^^^^^^^^^
       }
     case 'ADD_MOVIE':
       return {
@@ -45,6 +45,12 @@ let reducer = (state = stateDefault, action) => {
             genre: action.genre
           }
         ]
+      }
+    case 'REMOVE_MOVIE':
+      return {
+        ...state,
+        movies: state.movies.filter((movie) => movie.id !== action.id)
+        // shorthand syntax for arrow function  ^^^^^^^^^^^^^^^^^^^^^^
       }
     default:
       return state;
@@ -97,4 +103,15 @@ store.dispatch({
   type: 'ADD_MOVIE',
   title: "Wayne's World",
   genre: 'Comedy'
+});
+
+store.dispatch({
+  type: 'ADD_MOVIE',
+  title: "The Matrix: Reloaded",
+  genre: 'General mistakes of Mankind'
+});
+
+store.dispatch({
+  type: 'REMOVE_MOVIE',
+  id: 1
 });
