@@ -28,6 +28,12 @@ let reducer = (state = stateDefault, action) => {
           }
         ]
       };
+    case 'REMOVE_HOBBY':
+      return {
+        ...state,
+        hobbies: state.hobbies.filter((hobby) => hobby.id !== action.id)
+        // shortened syntax for arrow function  ^^^^^^^^^^^^^^^^^^^^^^
+      }
     case 'ADD_MOVIE':
       return {
         ...state,
@@ -52,8 +58,8 @@ let store = redux.createStore(reducer, redux.compose(
 let unsubscribe = store.subscribe(() => {
   let state = store.getState();
 
-  console.log('Name is', state.name);
   document.getElementById('app').innerHTML = state.name;
+  console.log('Name is', state.name);
 
   console.log('New State', store.getState());
 });
@@ -70,6 +76,16 @@ store.dispatch({
 store.dispatch({
   type: 'ADD_HOBBY',
   hobby: 'Coding'
+});
+
+store.dispatch({
+  type: 'ADD_HOBBY',
+  hobby: 'Taking pictures of the cat'
+});
+
+store.dispatch({
+  type: 'REMOVE_HOBBY',
+  id: 2
 });
 
 store.dispatch({

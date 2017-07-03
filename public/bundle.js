@@ -25866,6 +25866,13 @@
 	          hobby: action.hobby
 	        }])
 	      });
+	    case 'REMOVE_HOBBY':
+	      return _extends({}, state, {
+	        hobbies: state.hobbies.filter(function (hobby) {
+	          return hobby.id !== action.id;
+	        })
+	        // shortened syntax for arrow function  ^^^^^^^^^^^^^^^^^^^^^^
+	      });
 	    case 'ADD_MOVIE':
 	      return _extends({}, state, {
 	        movies: [].concat(_toConsumableArray(state.movies), [{
@@ -25886,8 +25893,8 @@
 	var unsubscribe = store.subscribe(function () {
 	  var state = store.getState();
 
-	  console.log('Name is', state.name);
 	  document.getElementById('app').innerHTML = state.name;
+	  console.log('Name is', state.name);
 
 	  console.log('New State', store.getState());
 	});
@@ -25904,6 +25911,16 @@
 	store.dispatch({
 	  type: 'ADD_HOBBY',
 	  hobby: 'Coding'
+	});
+
+	store.dispatch({
+	  type: 'ADD_HOBBY',
+	  hobby: 'Taking pictures of the cat'
+	});
+
+	store.dispatch({
+	  type: 'REMOVE_HOBBY',
+	  id: 2
 	});
 
 	store.dispatch({
