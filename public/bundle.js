@@ -120,8 +120,8 @@
 	//   document.getElementById('app')
 	// );
 
-	// require('./redux-example.jsx');
 	__webpack_require__(233);
+	// require('./redux-todo-example.jsx');
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(7), __webpack_require__(8)))
 
 /***/ }),
@@ -25836,23 +25836,43 @@
 
 	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 
+	function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } else { return Array.from(arr); } }
+
 	var redux = __webpack_require__(234);
 
-	console.log('starting redux-todo-example');
+	console.log('starting redux example');
 
 	var stateDefault = {
-	  searchText: '',
-	  showCompleted: false,
-	  todos: []
+	  name: 'Anonymous',
+	  hobbies: [],
+	  movies: []
 	};
+
+	var nextHobbyId = 1;
+	var nextMovieId = 1;
 	var reducer = function reducer() {
 	  var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : stateDefault;
 	  var action = arguments[1];
 
 	  switch (action.type) {
-	    case 'CHANGE_SEARCH_TEXT':
+	    case 'CHANGE_NAME':
 	      return _extends({}, state, {
-	        searchText: action.searchText
+	        name: action.name
+	      });
+	    case 'ADD_HOBBY':
+	      return _extends({}, state, {
+	        hobbies: [].concat(_toConsumableArray(state.hobbies), [{
+	          id: nextHobbyId++,
+	          hobby: action.hobby
+	        }])
+	      });
+	    case 'ADD_MOVIE':
+	      return _extends({}, state, {
+	        movies: [].concat(_toConsumableArray(state.movies), [{
+	          id: nextMovieId++,
+	          title: action.title,
+	          genre: action.genre
+	        }])
 	      });
 	    default:
 	      return state;
@@ -25863,31 +25883,38 @@
 	}));
 
 	// subscribe to changes
-	store.subscribe(function () {
+	var unsubscribe = store.subscribe(function () {
 	  var state = store.getState();
 
-	  document.getElementById('app').innerHTML = state.searchText;
+	  console.log('Name is', state.name);
+	  document.getElementById('app').innerHTML = state.name;
+
+	  console.log('New State', store.getState());
 	});
-	// unsubscribe();
+	// unsubscribe()
 
 	var currentState = store.getState();
 	console.log('currentState', currentState);
 
-	var action = {
-	  type: 'CHANGE_SEARCH_TEXT',
-	  searchText: 'work'
-	};
-	store.dispatch(action);
-	console.log('searchText should be "work"', store.getState());
-
 	store.dispatch({
-	  type: "CHANGE_SEARCH_TEXT",
-	  searchText: 'dog'
+	  type: 'CHANGE_NAME',
+	  name: 'Russel'
 	});
 
 	store.dispatch({
-	  type: "CHANGE_SEARCH_TEXT",
-	  searchText: 'other stuff'
+	  type: 'ADD_HOBBY',
+	  hobby: 'Coding'
+	});
+
+	store.dispatch({
+	  type: 'CHANGE_NAME',
+	  name: 'Annie'
+	});
+
+	store.dispatch({
+	  type: 'ADD_MOVIE',
+	  title: "Wayne's World",
+	  genre: 'Comedy'
 	});
 
 /***/ }),

@@ -2,17 +2,48 @@ const redux = require('redux');
 
 console.log('starting redux example')
 
-let reducer = (state = {name: 'Anonymous'}, action) => {
+let stateDefault = {
+  name: 'Anonymous',
+  hobbies: [],
+  movies: []
+};
+
+let nextHobbyId = 1;
+let nextMovieId = 1;
+let reducer = (state = stateDefault, action) => {
   switch(action.type) {
     case 'CHANGE_NAME':
       return {
         ...state,
         name: action.name
       };
+    case 'ADD_HOBBY':
+      return {
+        ...state,
+        hobbies: [
+          ...state.hobbies,
+          {
+            id: nextHobbyId++,
+            hobby: action.hobby
+          }
+        ]
+      };
+    case 'ADD_MOVIE':
+      return {
+        ...state,
+        movies: [
+          ...state.movies,
+          {
+            id: nextMovieId++,
+            title: action.title,
+            genre: action.genre
+          }
+        ]
+      }
     default:
       return state;
   }
-}
+};
 let store = redux.createStore(reducer, redux.compose(
   window.devToolsExtension ? window.devToolsExtension() : f => f
 ));
@@ -23,20 +54,31 @@ let unsubscribe = store.subscribe(() => {
 
   console.log('Name is', state.name);
   document.getElementById('app').innerHTML = state.name;
+
+  console.log('New State', store.getState());
 });
 // unsubscribe()
 
 let currentState = store.getState();
 console.log('currentState', currentState);
 
-let action = {
+store.dispatch({
   type: 'CHANGE_NAME',
   name: 'Russel'
-}
-store.dispatch(action);
+});
 
+store.dispatch({
+  type: 'ADD_HOBBY',
+  hobby: 'Coding'
+});
 
 store.dispatch({
   type: 'CHANGE_NAME',
-  name: 'Everett'
+  name: 'Annie'
+});
+
+store.dispatch({
+  type: 'ADD_MOVIE',
+  title: "Wayne's World",
+  genre: 'Comedy'
 });
