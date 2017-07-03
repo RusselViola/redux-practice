@@ -25866,6 +25866,13 @@
 	          hobby: action.hobby
 	        }])
 	      });
+	    case 'REMOVE_HOBBY':
+	      return _extends({}, state, {
+	        hobbies: state.hobbies.filter(function (hobby) {
+	          return hobby.id !== action.id;
+	        })
+	        // shorthand syntax for arrow function  ^^^^^^^^^^^^^^^^^^^^^^
+	      });
 	    case 'ADD_MOVIE':
 	      return _extends({}, state, {
 	        movies: [].concat(_toConsumableArray(state.movies), [{
@@ -25873,6 +25880,13 @@
 	          title: action.title,
 	          genre: action.genre
 	        }])
+	      });
+	    case 'REMOVE_MOVIE':
+	      return _extends({}, state, {
+	        movies: state.movies.filter(function (movie) {
+	          return movie.id !== action.id;
+	        })
+	        // shorthand syntax for arrow function  ^^^^^^^^^^^^^^^^^^^^^^
 	      });
 	    default:
 	      return state;
@@ -25886,8 +25900,8 @@
 	var unsubscribe = store.subscribe(function () {
 	  var state = store.getState();
 
-	  console.log('Name is', state.name);
 	  document.getElementById('app').innerHTML = state.name;
+	  console.log('Name is', state.name);
 
 	  console.log('New State', store.getState());
 	});
@@ -25907,6 +25921,16 @@
 	});
 
 	store.dispatch({
+	  type: 'ADD_HOBBY',
+	  hobby: 'Taking pictures of the cat'
+	});
+
+	store.dispatch({
+	  type: 'REMOVE_HOBBY',
+	  id: 2
+	});
+
+	store.dispatch({
 	  type: 'CHANGE_NAME',
 	  name: 'Annie'
 	});
@@ -25915,6 +25939,17 @@
 	  type: 'ADD_MOVIE',
 	  title: "Wayne's World",
 	  genre: 'Comedy'
+	});
+
+	store.dispatch({
+	  type: 'ADD_MOVIE',
+	  title: "The Matrix: Reloaded",
+	  genre: 'General mistakes of Mankind'
+	});
+
+	store.dispatch({
+	  type: 'REMOVE_MOVIE',
+	  id: 1
 	});
 
 /***/ }),

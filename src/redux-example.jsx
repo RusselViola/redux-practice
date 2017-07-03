@@ -28,6 +28,12 @@ let reducer = (state = stateDefault, action) => {
           }
         ]
       };
+    case 'REMOVE_HOBBY':
+      return {
+        ...state,
+        hobbies: state.hobbies.filter((hobby) => hobby.id !== action.id)
+        // shorthand syntax for arrow function  ^^^^^^^^^^^^^^^^^^^^^^
+      }
     case 'ADD_MOVIE':
       return {
         ...state,
@@ -39,6 +45,12 @@ let reducer = (state = stateDefault, action) => {
             genre: action.genre
           }
         ]
+      }
+    case 'REMOVE_MOVIE':
+      return {
+        ...state,
+        movies: state.movies.filter((movie) => movie.id !== action.id)
+        // shorthand syntax for arrow function  ^^^^^^^^^^^^^^^^^^^^^^
       }
     default:
       return state;
@@ -52,8 +64,8 @@ let store = redux.createStore(reducer, redux.compose(
 let unsubscribe = store.subscribe(() => {
   let state = store.getState();
 
-  console.log('Name is', state.name);
   document.getElementById('app').innerHTML = state.name;
+  console.log('Name is', state.name);
 
   console.log('New State', store.getState());
 });
@@ -73,6 +85,16 @@ store.dispatch({
 });
 
 store.dispatch({
+  type: 'ADD_HOBBY',
+  hobby: 'Taking pictures of the cat'
+});
+
+store.dispatch({
+  type: 'REMOVE_HOBBY',
+  id: 2
+});
+
+store.dispatch({
   type: 'CHANGE_NAME',
   name: 'Annie'
 });
@@ -81,4 +103,15 @@ store.dispatch({
   type: 'ADD_MOVIE',
   title: "Wayne's World",
   genre: 'Comedy'
+});
+
+store.dispatch({
+  type: 'ADD_MOVIE',
+  title: "The Matrix: Reloaded",
+  genre: 'General mistakes of Mankind'
+});
+
+store.dispatch({
+  type: 'REMOVE_MOVIE',
+  id: 1
 });
