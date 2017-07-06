@@ -25842,14 +25842,6 @@
 
 	console.log('starting redux example');
 
-	var stateDefault = {
-	  name: 'Anonymous',
-	  hobbies: [],
-	  movies: []
-	};
-
-	var nextHobbyId = 1;
-	var nextMovieId = 1;
 	var oldReducer = function oldReducer() {
 	  var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : stateDefault;
 	  var action = arguments[1];
@@ -25893,6 +25885,8 @@
 	  }
 	};
 
+	// Name Reducer and Action Generators
+	// ----------------------------------
 	var nameReducer = function nameReducer() {
 	  var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 'Anonymous';
 	  var action = arguments[1];
@@ -25905,6 +25899,16 @@
 	  }
 	};
 
+	var changeName = function changeName(name) {
+	  return {
+	    type: 'CHANGE_NAME',
+	    name: name
+	  };
+	};
+
+	// Hobbies Redcuer and Action Generators
+	// -------------------------------------
+	var nextHobbyId = 1;
 	var hobbiesReducer = function hobbiesReducer() {
 	  var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : [];
 	  var action = arguments[1];
@@ -25925,6 +25929,9 @@
 	  }
 	};
 
+	// Movies Redcuer and Action Generators
+	// ------------------------------------
+	var nextMovieId = 1;
 	var moviesReducer = function moviesReducer() {
 	  var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : [];
 	  var action = arguments[1];
@@ -25970,10 +25977,7 @@
 	var currentState = store.getState();
 	console.log('currentState', currentState);
 
-	store.dispatch({
-	  type: 'CHANGE_NAME',
-	  name: 'Russel'
-	});
+	store.dispatch(changeName('Russel'));
 
 	store.dispatch({
 	  type: 'ADD_HOBBY',
@@ -25990,10 +25994,7 @@
 	  id: 2
 	});
 
-	store.dispatch({
-	  type: 'CHANGE_NAME',
-	  name: 'Annie'
-	});
+	store.dispatch(changeName('Annie'));
 
 	store.dispatch({
 	  type: 'ADD_MOVIE',

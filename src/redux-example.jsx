@@ -60,6 +60,13 @@ let nameReducer = (state = 'Anonymous', action) => {
   }
 };
 
+let changeName = (name) => {
+  return {
+    type: 'CHANGE_NAME',
+    name: name
+  }
+};
+
 // Hobbies Redcuer and Action Generators
 // -------------------------------------
 let nextHobbyId = 1;
@@ -127,10 +134,7 @@ let unsubscribe = store.subscribe(() => {
 let currentState = store.getState();
 console.log('currentState', currentState);
 
-store.dispatch({
-  type: 'CHANGE_NAME',
-  name: 'Russel'
-});
+store.dispatch(changeName('Russel'));
 
 store.dispatch({
   type: 'ADD_HOBBY',
@@ -147,10 +151,7 @@ store.dispatch({
   id: 2
 });
 
-store.dispatch({
-  type: 'CHANGE_NAME',
-  name: 'Annie'
-});
+store.dispatch(changeName('Annie'));
 
 store.dispatch({
   type: 'ADD_MOVIE',
