@@ -25929,6 +25929,20 @@
 	  }
 	};
 
+	var addHobby = function addHobby(hobby) {
+	  return {
+	    type: 'ADD_HOBBY',
+	    hobby: hobby
+	  };
+	};
+
+	var removeHobby = function removeHobby(id) {
+	  return {
+	    type: 'REMOVE_HOBBY',
+	    id: id
+	  };
+	};
+
 	// Movies Redcuer and Action Generators
 	// ------------------------------------
 	var nextMovieId = 1;
@@ -25951,6 +25965,21 @@
 	    default:
 	      return state;
 	  }
+	};
+
+	var addMovie = function addMovie(title, genre) {
+	  return {
+	    type: 'ADD_MOVIE',
+	    title: title,
+	    genre: genre
+	  };
+	};
+
+	var removeMovie = function removeMovie(id) {
+	  return {
+	    type: 'REMOVE_MOVIE',
+	    id: id
+	  };
 	};
 
 	var reducer = redux.combineReducers({
@@ -25979,28 +26008,17 @@
 
 	store.dispatch(changeName('Russel'));
 
-	store.dispatch({
-	  type: 'ADD_HOBBY',
-	  hobby: 'Coding'
-	});
+	store.dispatch(addHobby('Coding'));
 
-	store.dispatch({
-	  type: 'ADD_HOBBY',
-	  hobby: 'Taking pictures of the cat'
-	});
+	store.dispatch(addHobby('Taking pictures of the cat'));
 
-	store.dispatch({
-	  type: 'REMOVE_HOBBY',
-	  id: 2
-	});
+	store.dispatch(removeHobby(2));
 
 	store.dispatch(changeName('Annie'));
 
-	store.dispatch({
-	  type: 'ADD_MOVIE',
-	  title: "Wayne's World",
-	  genre: 'Comedy'
-	});
+	store.dispatch(addMovie('Waynes World', 'Comedy'));
+	store.dispatch(addMovie('The Matrix: Reloaded', 'General mistakes of Mankind'));
+	store.dispatch(removeMovie(1));
 
 	store.dispatch({
 	  type: 'ADD_MOVIE',
