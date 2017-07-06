@@ -174,16 +174,7 @@ store.dispatch(removeHobby(2));
 store.dispatch(changeName('Annie'));
 
 store.dispatch(addMovie('Waynes World', 'Comedy'));
+
 store.dispatch(addMovie('The Matrix: Reloaded', 'General mistakes of Mankind'));
+
 store.dispatch(removeMovie(1));
-
-store.dispatch({
-  type: 'ADD_MOVIE',
-  title: "The Matrix: Reloaded",
-  genre: 'General mistakes of Mankind'
-});
-
-store.dispatch({
-  type: 'REMOVE_MOVIE',
-  id: 1
-});
