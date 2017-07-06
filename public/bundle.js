@@ -25919,6 +25919,28 @@
 	      return state.filter(function (hobby) {
 	        return hobby.id !== action.id;
 	      });
+	    // shorthand syntax for arrow function  ^^^^^^^^^^^^^^
+	    default:
+	      return state;
+	  }
+	};
+
+	var moviesReducer = function moviesReducer() {
+	  var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : [];
+	  var action = arguments[1];
+
+	  switch (action.type) {
+	    case 'ADD_MOVIE':
+	      return [].concat(_toConsumableArray(state), [{
+	        id: nextMovieId++,
+	        title: action.title,
+	        genre: action.genre
+	      }]);
+	    case 'REMOVE_MOVIE':
+	      return state.filter(function (movie) {
+	        return movie.id !== action.id;
+	      });
+	    // shorthand syntax for arrow function  ^^^^^^^^^^^^^^
 	    default:
 	      return state;
 	  }
@@ -25926,7 +25948,8 @@
 
 	var reducer = redux.combineReducers({
 	  name: nameReducer,
-	  hobbies: hobbiesReducer
+	  hobbies: hobbiesReducer,
+	  movies: moviesReducer
 	});
 
 	var store = redux.createStore(reducer, redux.compose(window.devToolsExtension ? window.devToolsExtension() : function (f) {

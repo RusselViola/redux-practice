@@ -78,6 +78,26 @@ let hobbiesReducer = (state = [], action) => {
       ]
     case 'REMOVE_HOBBY':
       return state.filter((hobby) => hobby.id !== action.id)
+      // shorthand syntax for arrow function  ^^^^^^^^^^^^^^
+    default:
+      return state;
+  }
+}
+
+let moviesReducer = (state = [], action) => {
+  switch(action.type) {
+    case 'ADD_MOVIE':
+      return [
+        ...state,
+        {
+          id: nextMovieId++,
+          title: action.title,
+          genre: action.genre
+        }
+      ]
+    case 'REMOVE_MOVIE':
+      return state.filter((movie) => movie.id !== action.id)
+      // shorthand syntax for arrow function  ^^^^^^^^^^^^^^
     default:
       return state;
   }
@@ -85,7 +105,8 @@ let hobbiesReducer = (state = [], action) => {
 
 let reducer = redux.combineReducers({
   name: nameReducer,
-  hobbies: hobbiesReducer
+  hobbies: hobbiesReducer,
+  movies: moviesReducer
 });
 
 let store = redux.createStore(reducer, redux.compose(
