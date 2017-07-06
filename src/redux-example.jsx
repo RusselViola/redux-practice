@@ -2,14 +2,6 @@ const redux = require('redux');
 
 console.log('starting redux example')
 
-let stateDefault = {
-  name: 'Anonymous',
-  hobbies: [],
-  movies: []
-};
-
-let nextHobbyId = 1;
-let nextMovieId = 1;
 let oldReducer = (state = stateDefault, action) => {
   switch(action.type) {
     case 'CHANGE_NAME':
@@ -57,6 +49,8 @@ let oldReducer = (state = stateDefault, action) => {
   }
 };
 
+// Name Reducer and Action Generators
+// ----------------------------------
 let nameReducer = (state = 'Anonymous', action) => {
   switch(action.type) {
     case 'CHANGE_NAME':
@@ -66,6 +60,16 @@ let nameReducer = (state = 'Anonymous', action) => {
   }
 };
 
+let changeName = (name) => {
+  return {
+    type: 'CHANGE_NAME',
+    name: name
+  }
+};
+
+// Hobbies Redcuer and Action Generators
+// -------------------------------------
+let nextHobbyId = 1;
 let hobbiesReducer = (state = [], action) => {
   switch(action.type) {
     case 'ADD_HOBBY':
@@ -84,6 +88,23 @@ let hobbiesReducer = (state = [], action) => {
   }
 }
 
+let addHobby = (hobby) => {
+  return {
+    type: 'ADD_HOBBY',
+    hobby: hobby
+  }
+};
+
+let removeHobby = (id) => {
+  return {
+    type: 'REMOVE_HOBBY',
+    id: id
+  }
+};
+
+// Movies Redcuer and Action Generators
+// ------------------------------------
+let nextMovieId = 1;
 let moviesReducer = (state = [], action) => {
   switch(action.type) {
     case 'ADD_MOVIE':
@@ -100,6 +121,21 @@ let moviesReducer = (state = [], action) => {
       // shorthand syntax for arrow function  ^^^^^^^^^^^^^^
     default:
       return state;
+  }
+}
+
+let addMovie = (title, genre) => {
+  return {
+    type: 'ADD_MOVIE',
+    title: title,
+    genre: genre
+  }
+}
+
+let removeMovie = (id) => {
+  return {
+    type: 'REMOVE_MOVIE',
+    id: id
   }
 }
 
@@ -127,44 +163,18 @@ let unsubscribe = store.subscribe(() => {
 let currentState = store.getState();
 console.log('currentState', currentState);
 
-store.dispatch({
-  type: 'CHANGE_NAME',
-  name: 'Russel'
-});
+store.dispatch(changeName('Russel'));
 
-store.dispatch({
-  type: 'ADD_HOBBY',
-  hobby: 'Coding'
-});
+store.dispatch(addHobby('Coding'));
 
-store.dispatch({
-  type: 'ADD_HOBBY',
-  hobby: 'Taking pictures of the cat'
-});
+store.dispatch(addHobby('Taking pictures of the cat'));
 
-store.dispatch({
-  type: 'REMOVE_HOBBY',
-  id: 2
-});
+store.dispatch(removeHobby(2));
 
-store.dispatch({
-  type: 'CHANGE_NAME',
-  name: 'Annie'
-});
+store.dispatch(changeName('Annie'));
 
-store.dispatch({
-  type: 'ADD_MOVIE',
-  title: "Wayne's World",
-  genre: 'Comedy'
-});
+store.dispatch(addMovie('Waynes World', 'Comedy'));
 
-store.dispatch({
-  type: 'ADD_MOVIE',
-  title: "The Matrix: Reloaded",
-  genre: 'General mistakes of Mankind'
-});
+store.dispatch(addMovie('The Matrix: Reloaded', 'General mistakes of Mankind'));
 
-store.dispatch({
-  type: 'REMOVE_MOVIE',
-  id: 1
-});
+store.dispatch(removeMovie(1));
