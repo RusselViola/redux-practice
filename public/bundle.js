@@ -25850,7 +25850,7 @@
 
 	var nextHobbyId = 1;
 	var nextMovieId = 1;
-	var reducer = function reducer() {
+	var oldReducer = function oldReducer() {
 	  var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : stateDefault;
 	  var action = arguments[1];
 
@@ -25892,6 +25892,66 @@
 	      return state;
 	  }
 	};
+
+	var nameReducer = function nameReducer() {
+	  var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 'Anonymous';
+	  var action = arguments[1];
+
+	  switch (action.type) {
+	    case 'CHANGE_NAME':
+	      return action.name;
+	    default:
+	      return state;
+	  }
+	};
+
+	var hobbiesReducer = function hobbiesReducer() {
+	  var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : [];
+	  var action = arguments[1];
+
+	  switch (action.type) {
+	    case 'ADD_HOBBY':
+	      return [].concat(_toConsumableArray(state), [{
+	        id: nextHobbyId++,
+	        hobby: action.hobby
+	      }]);
+	    case 'REMOVE_HOBBY':
+	      return state.filter(function (hobby) {
+	        return hobby.id !== action.id;
+	      });
+	    // shorthand syntax for arrow function  ^^^^^^^^^^^^^^
+	    default:
+	      return state;
+	  }
+	};
+
+	var moviesReducer = function moviesReducer() {
+	  var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : [];
+	  var action = arguments[1];
+
+	  switch (action.type) {
+	    case 'ADD_MOVIE':
+	      return [].concat(_toConsumableArray(state), [{
+	        id: nextMovieId++,
+	        title: action.title,
+	        genre: action.genre
+	      }]);
+	    case 'REMOVE_MOVIE':
+	      return state.filter(function (movie) {
+	        return movie.id !== action.id;
+	      });
+	    // shorthand syntax for arrow function  ^^^^^^^^^^^^^^
+	    default:
+	      return state;
+	  }
+	};
+
+	var reducer = redux.combineReducers({
+	  name: nameReducer,
+	  hobbies: hobbiesReducer,
+	  movies: moviesReducer
+	});
+
 	var store = redux.createStore(reducer, redux.compose(window.devToolsExtension ? window.devToolsExtension() : function (f) {
 	  return f;
 	}));

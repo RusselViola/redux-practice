@@ -10,7 +10,7 @@ let stateDefault = {
 
 let nextHobbyId = 1;
 let nextMovieId = 1;
-let reducer = (state = stateDefault, action) => {
+let oldReducer = (state = stateDefault, action) => {
   switch(action.type) {
     case 'CHANGE_NAME':
       return {
@@ -56,6 +56,59 @@ let reducer = (state = stateDefault, action) => {
       return state;
   }
 };
+
+let nameReducer = (state = 'Anonymous', action) => {
+  switch(action.type) {
+    case 'CHANGE_NAME':
+      return action.name;
+    default:
+      return state;
+  }
+};
+
+let hobbiesReducer = (state = [], action) => {
+  switch(action.type) {
+    case 'ADD_HOBBY':
+      return [
+        ...state,
+        {
+          id: nextHobbyId++,
+          hobby: action.hobby
+        }
+      ]
+    case 'REMOVE_HOBBY':
+      return state.filter((hobby) => hobby.id !== action.id)
+      // shorthand syntax for arrow function  ^^^^^^^^^^^^^^
+    default:
+      return state;
+  }
+}
+
+let moviesReducer = (state = [], action) => {
+  switch(action.type) {
+    case 'ADD_MOVIE':
+      return [
+        ...state,
+        {
+          id: nextMovieId++,
+          title: action.title,
+          genre: action.genre
+        }
+      ]
+    case 'REMOVE_MOVIE':
+      return state.filter((movie) => movie.id !== action.id)
+      // shorthand syntax for arrow function  ^^^^^^^^^^^^^^
+    default:
+      return state;
+  }
+}
+
+let reducer = redux.combineReducers({
+  name: nameReducer,
+  hobbies: hobbiesReducer,
+  movies: moviesReducer
+});
+
 let store = redux.createStore(reducer, redux.compose(
   window.devToolsExtension ? window.devToolsExtension() : f => f
 ));
