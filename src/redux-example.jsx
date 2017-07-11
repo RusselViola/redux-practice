@@ -158,6 +158,28 @@ let mapReducer = (state = {isFetching: false, url: undefined}, action) => {
   }
 };
 
+let startLocationFetch = () => {
+  return {
+    type: 'START_LOCATION_FETCH'
+  }
+};
+
+let completeLocationFetch = (url) => {
+  type: 'COMPLETE_LOCATION_FETCH',
+  url: url
+};
+
+let fetchLocation = () => {
+  store.dispatch(startLocationFetch());
+
+  axios.get('http://ipinfo.io').then(function(res) {
+    let loc = res.data.loc;
+    let baseUrl = 'http://maps.google.com?q='
+
+    store.dispatch(completeLocationFetch(baseUrl + loc));
+  })
+};
+
 let reducer = redux.combineReducers({
   name: nameReducer,
   hobbies: hobbiesReducer,
