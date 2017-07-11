@@ -1,4 +1,5 @@
 const redux = require('redux');
+const axios = require('axios');
 
 console.log('starting redux example')
 
@@ -165,8 +166,10 @@ let startLocationFetch = () => {
 };
 
 let completeLocationFetch = (url) => {
-  type: 'COMPLETE_LOCATION_FETCH',
-  url: url
+  return {
+    type: 'COMPLETE_LOCATION_FETCH',
+    url
+  }
 };
 
 let fetchLocation = () => {
@@ -195,12 +198,18 @@ let store = redux.createStore(reducer, redux.compose(
 let unsubscribe = store.subscribe(() => {
   let state = store.getState();
 
-  document.getElementById('app').innerHTML = state.name;
-  console.log('Name is', state.name);
-
   console.log('New State', store.getState());
+
+  if(state.map.isFetching) {
+    document.getElementById('app').innerHTML = 'Loading...';
+  } else if(state.map.url) {
+    document.getElementById('app').innerHTML = '<a href="' + state.map.url + '" target="_blank">View Your Location</a>'
+  }
 });
 // unsubscribe()
+
+fetchLocation();
+
 
 let currentState = store.getState();
 console.log('currentState', currentState);
