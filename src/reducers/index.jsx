@@ -1,4 +1,4 @@
-let nameReducer = (state = 'Anonymous', action) => {
+export let nameReducer = (state = 'Anonymous', action) => {
   switch(action.type) {
     case 'CHANGE_NAME':
       return action.name;
@@ -8,7 +8,7 @@ let nameReducer = (state = 'Anonymous', action) => {
 };
 
 let nextHobbyId = 1;
-let hobbiesReducer = (state = [], action) => {
+export let hobbiesReducer = (state = [], action) => {
   switch(action.type) {
     case 'ADD_HOBBY':
       return [
@@ -27,7 +27,7 @@ let hobbiesReducer = (state = [], action) => {
 }
 
 let nextMovieId = 1;
-let moviesReducer = (state = [], action) => {
+export let moviesReducer = (state = [], action) => {
   switch(action.type) {
     case 'ADD_MOVIE':
       return [
@@ -46,7 +46,7 @@ let moviesReducer = (state = [], action) => {
   }
 }
 
-let mapReducer = (state = {isFetching: false, url: undefined}, action) => {
+export let mapReducer = (state = {isFetching: false, url: undefined}, action) => {
   switch (action.type) {
     case 'START_LOCATION_FETCH':
       return{

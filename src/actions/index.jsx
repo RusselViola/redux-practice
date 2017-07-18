@@ -1,25 +1,25 @@
-let changeName = (name) => {
+export let changeName = (name) => {
   return {
     type: 'CHANGE_NAME',
     name: name
   }
 };
 
-let addHobby = (hobby) => {
+export let addHobby = (hobby) => {
   return {
     type: 'ADD_HOBBY',
     hobby: hobby
   }
 };
 
-let removeHobby = (id) => {
+export let removeHobby = (id) => {
   return {
     type: 'REMOVE_HOBBY',
     id: id
   }
 };
 
-let addMovie = (title, genre) => {
+export let addMovie = (title, genre) => {
   return {
     type: 'ADD_MOVIE',
     title: title,
@@ -27,27 +27,27 @@ let addMovie = (title, genre) => {
   }
 }
 
-let removeMovie = (id) => {
+export let removeMovie = (id) => {
   return {
     type: 'REMOVE_MOVIE',
     id: id
   }
 }
 
-let startLocationFetch = () => {
+export let startLocationFetch = () => {
   return {
     type: 'START_LOCATION_FETCH'
   }
 };
 
-let completeLocationFetch = (url) => {
+export let completeLocationFetch = (url) => {
   return {
     type: 'COMPLETE_LOCATION_FETCH',
     url
   }
 };
 
-let fetchLocation = () => {
+export let fetchLocation = () => {
   store.dispatch(startLocationFetch());
 
   axios.get('http://ipinfo.io').then(function(res) {
