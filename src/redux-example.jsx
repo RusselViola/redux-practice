@@ -19,7 +19,7 @@ let unsubscribe = store.subscribe(() => {
 });
 // unsubscribe()
 
-actions.fetchLocation();
+store.dispatch(actions.fetchLocation());
 
 let currentState = store.getState();
 console.log('currentState', currentState);

@@ -48,12 +48,14 @@ export let completeLocationFetch = (url) => {
 };
 
 export let fetchLocation = () => {
-  store.dispatch(startLocationFetch());
+  return (dispatch, getState) => {
+    dispatch(startLocationFetch());
 
-  axios.get('http://ipinfo.io').then(function(res) {
-    let loc = res.data.loc;
-    let baseUrl = 'http://maps.google.com?q='
+    axios.get('http://ipinfo.io').then(function(res) {
+      let loc = res.data.loc;
+      let baseUrl = 'http://maps.google.com?q='
 
-    store.dispatch(completeLocationFetch(baseUrl + loc));
-  })
+      store.dispatch(completeLocationFetch(baseUrl + loc));
+    })
+  }
 };
