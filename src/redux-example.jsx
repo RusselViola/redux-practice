@@ -50,45 +50,6 @@ let oldReducer = (state = stateDefault, action) => {
   }
 };
 
-// Name Reducer and Action Generators
-// ----------------------------------
-let nameReducer = (state = 'Anonymous', action) => {
-  switch(action.type) {
-    case 'CHANGE_NAME':
-      return action.name;
-    default:
-      return state;
-  }
-};
-
-let changeName = (name) => {
-  return {
-    type: 'CHANGE_NAME',
-    name: name
-  }
-};
-
-// Hobbies Redcuer and Action Generators
-// -------------------------------------
-let nextHobbyId = 1;
-let hobbiesReducer = (state = [], action) => {
-  switch(action.type) {
-    case 'ADD_HOBBY':
-      return [
-        ...state,
-        {
-          id: nextHobbyId++,
-          hobby: action.hobby
-        }
-      ]
-    case 'REMOVE_HOBBY':
-      return state.filter((hobby) => hobby.id !== action.id)
-      // shorthand syntax for arrow function  ^^^^^^^^^^^^^^
-    default:
-      return state;
-  }
-}
-
 let addHobby = (hobby) => {
   return {
     type: 'ADD_HOBBY',
@@ -102,28 +63,6 @@ let removeHobby = (id) => {
     id: id
   }
 };
-
-// Movies Redcuer and Action Generators
-// ------------------------------------
-let nextMovieId = 1;
-let moviesReducer = (state = [], action) => {
-  switch(action.type) {
-    case 'ADD_MOVIE':
-      return [
-        ...state,
-        {
-          id: nextMovieId++,
-          title: action.title,
-          genre: action.genre
-        }
-      ]
-    case 'REMOVE_MOVIE':
-      return state.filter((movie) => movie.id !== action.id)
-      // shorthand syntax for arrow function  ^^^^^^^^^^^^^^
-    default:
-      return state;
-  }
-}
 
 let addMovie = (title, genre) => {
   return {
@@ -139,25 +78,6 @@ let removeMovie = (id) => {
     id: id
   }
 }
-
-// Map Redcuer and Action Generators
-// ---------------------------------
-let mapReducer = (state = {isFetching: false, url: undefined}, action) => {
-  switch (action.type) {
-    case 'START_LOCATION_FETCH':
-      return{
-        isFetching: true,
-        url: undefined
-      }
-    case 'COMPLETE_LOCATION_FETCH':
-      return {
-        isFetching: false,
-        url: action.url
-      }
-    default:
-      return state;
-  }
-};
 
 let startLocationFetch = () => {
   return {
