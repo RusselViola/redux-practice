@@ -2,7 +2,7 @@ const redux = require('redux');
 const thunk = require('redux-thunk').default;
 const {nameReducer, hobbiesReducer, moviesReducer, mapReducer} = require('./../reducers/index');
 
-export const configure = () => {
+export let configure = () => {
   let reducer = redux.combineReducers({
     name: nameReducer,
     hobbies: hobbiesReducer,
@@ -14,4 +14,5 @@ export const configure = () => {
     redux.applyMiddleware(thunk),
     window.devToolsExtension ? window.devToolsExtension() : f => f
   ));
+  return store;
 }

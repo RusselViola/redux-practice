@@ -1,3 +1,5 @@
+const axios = require('axios');
+
 export let changeName = (name) => {
   return {
     type: 'CHANGE_NAME',
@@ -55,7 +57,7 @@ export let fetchLocation = () => {
       let loc = res.data.loc;
       let baseUrl = 'http://maps.google.com?q='
 
-      store.dispatch(completeLocationFetch(baseUrl + loc));
+      dispatch(completeLocationFetch(baseUrl + loc));
     })
   }
 };

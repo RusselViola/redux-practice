@@ -1,9 +1,10 @@
 const redux = require('redux');
 const axios = require('axios');
-const actions = require('./actions/index');
-const store = require('./store/configureStore.jsx').configure();
 
 console.log('starting redux example')
+
+const actions = require('./actions/index');
+const store = require('./store/configureStore').configure();
 
 // subscribe to changes
 let unsubscribe = store.subscribe(() => {
@@ -19,10 +20,11 @@ let unsubscribe = store.subscribe(() => {
 });
 // unsubscribe()
 
-store.dispatch(actions.fetchLocation());
 
 let currentState = store.getState();
 console.log('currentState', currentState);
+
+store.dispatch(actions.fetchLocation());
 
 store.dispatch(actions.changeName('Russel'));
 
