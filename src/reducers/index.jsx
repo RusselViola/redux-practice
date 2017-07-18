@@ -1,5 +1,3 @@
-// Name Reducer
-// ------------
 let nameReducer = (state = 'Anonymous', action) => {
   switch(action.type) {
     case 'CHANGE_NAME':
@@ -9,15 +7,6 @@ let nameReducer = (state = 'Anonymous', action) => {
   }
 };
 
-let changeName = (name) => {
-  return {
-    type: 'CHANGE_NAME',
-    name: name
-  }
-};
-
-// Hobbies Redcuers
-// ----------------
 let nextHobbyId = 1;
 let hobbiesReducer = (state = [], action) => {
   switch(action.type) {
@@ -37,8 +26,6 @@ let hobbiesReducer = (state = [], action) => {
   }
 }
 
-// Movies Redcuer
-// --------------
 let nextMovieId = 1;
 let moviesReducer = (state = [], action) => {
   switch(action.type) {
@@ -59,8 +46,6 @@ let moviesReducer = (state = [], action) => {
   }
 }
 
-// Map Redcuer
-// -----------
 let mapReducer = (state = {isFetching: false, url: undefined}, action) => {
   switch (action.type) {
     case 'START_LOCATION_FETCH':
