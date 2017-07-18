@@ -1,67 +1,9 @@
 const redux = require('redux');
 const axios = require('axios');
+const actions = require('./actions/index');
+const store = require('./store/configureStore.jsx').configure();
 
 console.log('starting redux example')
-
-let oldReducer = (state = stateDefault, action) => {
-  switch(action.type) {
-    case 'CHANGE_NAME':
-      return {
-        ...state,
-        name: action.name
-      };
-    case 'ADD_HOBBY':
-      return {
-        ...state,
-        hobbies: [
-          ...state.hobbies,
-          {
-            id: nextHobbyId++,
-            hobby: action.hobby
-          }
-        ]
-      };
-    case 'REMOVE_HOBBY':
-      return {
-        ...state,
-        hobbies: state.hobbies.filter((hobby) => hobby.id !== action.id)
-        // shorthand syntax for arrow function  ^^^^^^^^^^^^^^^^^^^^^^
-      }
-    case 'ADD_MOVIE':
-      return {
-        ...state,
-        movies: [
-          ...state.movies,
-          {
-            id: nextMovieId++,
-            title: action.title,
-            genre: action.genre
-          }
-        ]
-      }
-    case 'REMOVE_MOVIE':
-      return {
-        ...state,
-        movies: state.movies.filter((movie) => movie.id !== action.id)
-        // shorthand syntax for arrow function  ^^^^^^^^^^^^^^^^^^^^^^
-      }
-    default:
-      return state;
-  }
-};
-
-
-
-let reducer = redux.combineReducers({
-  name: nameReducer,
-  hobbies: hobbiesReducer,
-  movies: moviesReducer,
-  map: mapReducer
-});
-
-let store = redux.createStore(reducer, redux.compose(
-  window.devToolsExtension ? window.devToolsExtension() : f => f
-));
 
 // subscribe to changes
 let unsubscribe = store.subscribe(() => {
@@ -77,24 +19,23 @@ let unsubscribe = store.subscribe(() => {
 });
 // unsubscribe()
 
-fetchLocation();
-
+actions.fetchLocation();
 
 let currentState = store.getState();
 console.log('currentState', currentState);
 
-store.dispatch(changeName('Russel'));
+store.dispatch(actions.changeName('Russel'));
 
-store.dispatch(addHobby('Coding'));
+store.dispatch(actions.addHobby('Coding'));
 
-store.dispatch(addHobby('Taking pictures of the cat'));
+store.dispatch(actions.addHobby('Taking pictures of the cat'));
 
-store.dispatch(removeHobby(2));
+store.dispatch(actions.removeHobby(2));
 
-store.dispatch(changeName('Annie'));
+store.dispatch(actions.changeName('Annie'));
 
-store.dispatch(addMovie('Waynes World', 'Comedy'));
+store.dispatch(actions.addMovie('Waynes World', 'Comedy'));
 
-store.dispatch(addMovie('The Matrix: Reloaded', 'General mistakes of Mankind'));
+store.dispatch(actions.addMovie('The Matrix: Reloaded', 'General mistakes of Mankind'));
 
-store.dispatch(removeMovie(1));
+store.dispatch(actions.removeMovie(1));
